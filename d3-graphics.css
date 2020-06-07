@@ -1,0 +1,46 @@
+.d3-tooltip {    
+    position: absolute;            
+    text-align: left;            
+    width: 120px;                    
+    padding: 2px;
+    padding-left: 15px;                
+    font: 10px Lucida Console, Monaco, monospace, courier, courier new;
+    color: #ccc;
+    background: rgba(0,0,0,0.75);    
+    border: 0px;        
+    border-radius: 2px;            
+    pointer-events: none;            
+}
+
+.d3-tooltip h2 {
+    font-size: 10px;
+    margin-left: -13px;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.d3-scatter .tick { 
+    font: 10px Lucida Console, Monaco, monospace, courier, courier new;
+}
+
+.d3-scatter .data-point {
+    fill: steelblue;
+    opacity : 0.5;
+}
+
+.d3-scatter .data-point:hover {
+  opacity : 0.75;
+    stroke: #666;
+    stroke-width: 1px;
+}
+
+.d3-scatter .axis-label { 
+    font-family: Lucida Console, Monaco, monospace, courier, courier new;
+    fill: #666;
+}
+
+.d3-chart-caption {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+}
