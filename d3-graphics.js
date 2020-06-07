@@ -1,4 +1,28 @@
 function d3_scatter(chart_ID,x,y,data_path,tooltip_text){
+  /*
+    Produce a 1-d scatter plot across the width of the page.  Optionally,
+    pass a custom tool-tip text generator.
+
+    TODO: 
+      - axis limits currently hard-coded to POC chart, FIXME
+        - num axis ticks also hard-coded to POC chart, FIXME
+      - no support for dates
+      - width hard-coded to 700 pixels ... FIXME
+
+    Args:
+      chart_ID : required div ID (e.g. "#mychart")
+      x : x-variable (e.g. "dinosaurs")
+      y : y-variable (e.g. "mammals")
+      data_path : full URL to data file (currently only CSV)
+
+    Opt Args:
+      tooltip_text (undefined) : function that takes data row and
+        returns text/HTML to display within a tooltip.  If none
+        supplied, no tooltips are generated.
+
+    Returns:
+      undefined
+  */
 
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 30, bottom: 40, left: 50},
@@ -72,8 +96,8 @@ function d3_scatter(chart_ID,x,y,data_path,tooltip_text){
       .data(data)
       .enter()
       .append("circle")
-        .attr("cx", function (d) { return x_scale(d['Altitude']); } )
-        .attr("cy", function (d) { return y_scale(d['O2']); } )
+        .attr("cx", function (d) { return x_scale(d[x]); } )
+        .attr("cy", function (d) { return y_scale(d[y]); } )
         .attr("r", 8)
         .attr("class","data-point");
 
