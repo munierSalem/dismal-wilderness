@@ -2,8 +2,8 @@
     position: absolute;            
     text-align: left;            
     width: 120px;                    
-    padding: 2px;
-    padding-left: 15px;                
+    padding: 5px;
+    padding-left: 17px;                
     font: 10px Lucida Console, Monaco, monospace, courier, courier new;
     color: #ccc;
     background: rgba(0,0,0,0.75);    
@@ -14,12 +14,12 @@
 
 .d3-tooltip h2 {
     font-size: 10px;
-    margin-left: -13px;
-    margin-bottom: 0;
+    margin: 0 0 0 -12px;
+    padding: 0;
     color: #fff;
 }
 
-.d3-scatter .tick { 
+.d3-scatter .tick, .d3-chart .tick { 
     font: 10px Lucida Console, Monaco, monospace, courier, courier new;
 }
 
@@ -34,7 +34,7 @@
     stroke-width: 1px;
 }
 
-.d3-scatter .axis-label { 
+.d3-scatter .axis-label, .d3-chart .axis-label { 
     font-family: Lucida Console, Monaco, monospace, courier, courier new;
     fill: #666;
 }
@@ -43,4 +43,50 @@
     font-size: 13px;
     color: #666;
     font-style: italic;
+}
+
+.d3-chart .tick line {
+    stroke: #EBEBEB;
+}
+
+.d3-chart .bar {
+    /*fill: rgba(204, 44, 0, 0.30);
+    stroke: #cc2c00;
+    stroke-width: 1px;*/
+    fill: steelblue;
+    opacity: 0.5;
+}
+
+.d3-chart .bar:hover {
+    /*fill: rgba(204, 44, 0, 0.5);*/
+    opacity: 0.75;
+    stroke: #666;
+    stroke-width: 1px;
+}
+
+.d3-chart .domain {
+    stroke: none;
+}
+
+.d3-chart .controls .button {
+    font-family: Lucida Console, Monaco, monospace, courier, courier new;
+    font-size: 12px;
+    text-align: center;
+    margin-right: 5px;
+    display: block;
+    width: 100px;
+    cursor: pointer;
+    padding: 3px;
+    border: 1px solid #666;
+    color: #666;
+    float: left;
+}
+
+.d3-chart .controls .button:hover, .d3-chart .controls .button.selected {
+    color: #fff;
+    background: #666;
+}
+
+.d3-chart .controls br {
+    clear: both;
 }
