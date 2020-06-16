@@ -6,14 +6,13 @@
     padding-left: 17px;                
     font: 10px Lucida Console, Monaco, monospace, courier, courier new;
     color: #ccc;
-    background: rgba(0,0,0,0.75);    
-    border: 0px;        
-    border-radius: 2px;            
-    pointer-events: none;            
+    background: rgba(0,0,0,0.85);    
+    border: 1px solid #000;        
+    pointer-events: none;       
 }
 
 .d3-tooltip h2 {
-    font-size: 10px;
+    font-size: 12px;
     margin: 0 0 0 -12px;
     padding: 0;
     color: #fff;
@@ -24,19 +23,19 @@
 }
 
 .d3-scatter .data-point {
-    fill: steelblue;
-    opacity : 0.5;
+    fill: #00A0CC;
+    fill-opacity : 0.5;
+    stroke: #00A0CC;
+    stroke-width: 1px;
 }
 
 .d3-scatter .data-point:hover {
-  opacity : 0.75;
-    stroke: #666;
-    stroke-width: 1px;
+    fill-opacity : 1.0;
 }
 
 .d3-scatter .axis-label, .d3-chart .axis-label { 
     font-family: Lucida Console, Monaco, monospace, courier, courier new;
-    fill: #666;
+    fill: #cc2c00;
 }
 
 .d3-chart-caption {
@@ -53,15 +52,15 @@
     /*fill: rgba(204, 44, 0, 0.30);
     stroke: #cc2c00;
     stroke-width: 1px;*/
-    fill: steelblue;
-    opacity: 0.5;
+    fill: #00A0CC; /* #00A0CC; */
+    fill-opacity: 0.5;
+    stroke: #00A0CC;
+    stroke-width: 1px;
 }
 
 .d3-chart .bar:hover {
     /*fill: rgba(204, 44, 0, 0.5);*/
-    opacity: 0.75;
-    stroke: #666;
-    stroke-width: 1px;
+    fill-opacity: 1.0;
 }
 
 .d3-chart .domain {
@@ -76,15 +75,45 @@
     display: block;
     width: 100px;
     cursor: pointer;
-    padding: 3px;
+    padding: 2px;
     border: 1px solid #666;
     color: #666;
     float: left;
 }
 
-.d3-chart .controls .button:hover, .d3-chart .controls .button.selected {
+.d3-chart .controls .button.selected {
     color: #fff;
     background: #666;
+    border-color: #666;
+}
+
+.d3-chart .controls .button:hover {
+    color: #fff;
+    background: #cc2c00;
+    border-color: #cc2c00;
+}
+
+.d3-chart .line {
+    stroke-width: 3px;
+}
+
+.d3-chart .line:hover {
+    stroke-width: 5px;
+}
+
+.d3-chart .marker {
+    r: 5px;
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+.d3-chart .marker:hover {
+    r: 8px;
+}
+
+.d3-chart .line-label {
+    font-family: Lucida Console, Monaco, monospace, courier, courier new;
+    font-size: 12px;
 }
 
 .d3-chart .controls br {
