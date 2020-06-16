@@ -411,7 +411,8 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,l
 
     // A color scale: one color for each group
     var myColor = d3.scaleOrdinal()
-      .domain(y_vars).range(['#cc2c00','#00A0CC','#7FD629','#F8AD07','#666666','#EE52A0']);
+      .domain(y_vars).range(['#cc2c00','#00A0CC','#7FD629','#F8AD07','#666666',
+                             '#EE52A0','#9979BE']);
 
     // Add the lines
     var line = d3.line().x(d=>x_scale(d.x)).y(d=>y_scale(d.y))
