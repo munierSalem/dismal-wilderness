@@ -313,7 +313,7 @@ function d3_barchart(chart_ID,x,y_vars,data_path,tooltip_text,y_label){
 } // end d3_scatter function
 
 
-function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label){
+function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,line_label_coords){
 
   // infer y_label from y_vars if only one y_var given
   if( !Array.isArray(y_vars) && typeof y_label === "undefined"){
@@ -394,23 +394,24 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label){
 
     // Update the X axis
     var x_min = d3.min(data,d=>+d[x]), x_max = d3.max(data,d=>+d[x]);
-    x_scale.domain([x_min,x_max + (x_max-x_min)*0.1])
+    var label_buffer_pct = (typeof line_label_coords === "undefined") ? 0.1 : 0.0;
+    x_scale.domain([x_min,x_max + (x_max-x_min)*label_buffer_pct]);
     xAxis
       .call(d3.axisBottom(x_scale).tickSize(-height*1.3).ticks(4).tickFormat(d3.format("d")))
       .select("domain").remove();
 
     // Update the Y axis
-    y_scale.domain([
-      d3.min(y_vars.map(y=>d3.min(data,d=>d[y]))),
-      d3.max(y_vars.map(y=>d3.max(data,d=>d[y])))
-    ]); // end y_scale.domain
+    var y_min = d3.min(y_vars.map(y=>d3.min(data,d=>d[y])));
+    var y_max = d3.max(y_vars.map(y=>d3.max(data,d=>d[y])));
+    y_min -= (y_max-y_min)*0.1;
+    y_scale.domain([y_min,y_max]); // end y_scale.domain
     y_axis
       .call(d3.axisLeft(y_scale).tickSize(-width*1.3).ticks(4).tickFormat(d3.format(".0%")))
       .select("domain").remove();
 
     // A color scale: one color for each group
     var myColor = d3.scaleOrdinal()
-      .domain(y_vars).range(['#cc2c00','#00A0CC','#9CD10C','#9860E7','#F8AD07']);
+      .domain(y_vars).range(['#cc2c00','#00A0CC','#7FD629','#F8AD07','#666666','#EE52A0']);
 
     // Add the lines
     var line = d3.line().x(d=>x_scale(d.x)).y(d=>y_scale(d.y))
@@ -441,8 +442,16 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label){
         .attr("cx",d=>x_scale(d.x))
         .attr("cy",d=>y_scale(d.y));
 
-
     // add labels after ea. line
+    function translate_label(d){
+      // if no coords given, just use ends of lines
+      if(typeof line_label_coords === "undefined")
+        return "translate(" + x_scale(d.value.x) + "," + y_scale(d.value.y) + ")";
+      // otherwise, use user-defined positions
+      var coords = line_label_coords[d.name];
+      console.log(coords);
+      return "translate(" + x_scale(coords[0]) + "," + y_scale(coords[1]) + ")";
+    } // end translate_label
     svg
       .selectAll("myLabels")
       .data(dataReady)
@@ -451,12 +460,10 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label){
         .append("text")
           .classed('line-label',true)
           .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-          .attr("transform", function(d) { 
-            return "translate(" + x_scale(d.value.x) + "," + y_scale(d.value.y) + ")"; })
+          .attr("transform",d=>translate_label(d))
           .attr("x", 12) // shift the text a bit more right
           .text(function(d) { return d.name; })
-          .style("fill", function(d){ return myColor(d.name) });
-
+          .style("fill", function(d){ return myColor(d.name) }); 
 
     if(typeof tooltip_text !== "undefined"){
         // define mouseover behavior for tooltips
