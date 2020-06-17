@@ -107,18 +107,18 @@ function d3_scatter(chart_ID,x,y,data_path,tooltip_text,x_label,y_label){
     if(typeof tooltip_text !== "undefined"){
 
         // define mouseover behavior for tooltips
-        data_points.on("mouseover", function(d) {		
-              tooltip.transition()		
-                  .duration(200)		
-                  .style("opacity", .9);		
-              tooltip.html(tooltip_text(d))	
-                  .style("left", (d3.event.pageX + 20) + "px")		
-                  .style("top", (d3.event.pageY - 28) + "px");	
+        data_points.on("mouseover", function(d) {   
+              tooltip.transition()    
+                  .duration(200)    
+                  .style("opacity", .9);    
+              tooltip.html(tooltip_text(d)) 
+                  .style("left", (d3.event.pageX + 20) + "px")    
+                  .style("top", (d3.event.pageY - 28) + "px");  
               }) // end mouseover
-        .on("mouseout", function(d) {		
-              tooltip.transition()		
-                  .duration(500)		
-                  .style("opacity", 0);	
+        .on("mouseout", function(d) {   
+              tooltip.transition()    
+                  .duration(500)    
+                  .style("opacity", 0); 
         });// end mouseout
 
     } // end tooltip if
@@ -128,13 +128,14 @@ function d3_scatter(chart_ID,x,y,data_path,tooltip_text,x_label,y_label){
 } // end d3_scatter
 
 
-function d3_barchart(chart_ID,x,y_vars,data_path,tooltip_text,y_label){
+function d3_barchart(chart_ID,x,y_vars,data_path,tooltip_text,y_label,sort,limit){
   /*
     Produce a horizontal bar chartacross the width of the page.  Optionally,
     pass a custom tool-tip text generator.  Pass in a *list* of y_vars.  If 
     there's more than one, buttons appear to toggle between y-vars.
 
     TODO: 
+      - properties dictionary rather than a lot of optional args
       - should allow to switch to stacked instead of toggle buttons
       - no support for dates
       - width hard-coded to 700 pixels ... FIXME
@@ -159,6 +160,13 @@ function d3_barchart(chart_ID,x,y_vars,data_path,tooltip_text,y_label){
   if( !Array.isArray(y_vars) && typeof y_label === "undefined"){
     y_label = y_vars;
   } // end y_vars if
+
+  if( typeof sort === "undefined"){
+    sort = true;
+  }
+  if( typeof limit === "undefined"){
+    limit = 10;
+  }
 
   // set the dimensions and margins of the graph
   var margin = {
@@ -218,8 +226,13 @@ function d3_barchart(chart_ID,x,y_vars,data_path,tooltip_text,y_label){
     d3.csv(data_path,function(data){
 
       // Select top 10 items by selected metric
-      data = data.sort((d1,d2)=>d3.descending(+d1[y], +d2[y]));
-      data = data.slice(0,10); 
+      if(sort){
+        data = data.sort((d1,d2)=>d3.descending(+d1[y], +d2[y]));  
+      }
+      if(limit > 0){
+        data = data.slice(0,limit);   
+      }
+      
 
         // Update the X axis
         x_scale.domain(data.map(d=>d[x]))
@@ -313,7 +326,7 @@ function d3_barchart(chart_ID,x,y_vars,data_path,tooltip_text,y_label){
 } // end d3_scatter function
 
 
-function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,line_label_coords){
+function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,line_label_coords,y_format){
 
   // infer y_label from y_vars if only one y_var given
   if( !Array.isArray(y_vars) && typeof y_label === "undefined"){
@@ -322,6 +335,10 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,l
   if(typeof x_label === "undefined"){
     x_label = x;
   } // end x_label if
+
+  if(typeof y_format === "undefined"){
+    y_format = d3.format(".0%");
+  } // end y_format if
 
   // set the dimensions and margins of the graph
   var margin = {
@@ -401,12 +418,12 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,l
       .select("domain").remove();
 
     // Update the Y axis
-    var y_min = d3.min(y_vars.map(y=>d3.min(data,d=>d[y])));
-    var y_max = d3.max(y_vars.map(y=>d3.max(data,d=>d[y])));
+    var y_min = d3.min(y_vars.map(y=>d3.min(data,d=>+d[y])));
+    var y_max = d3.max(y_vars.map(y=>d3.max(data,d=>+d[y])));
     y_min -= (y_max-y_min)*0.1;
     y_scale.domain([y_min,y_max]); // end y_scale.domain
     y_axis
-      .call(d3.axisLeft(y_scale).tickSize(-width*1.3).ticks(4).tickFormat(d3.format(".0%")))
+      .call(d3.axisLeft(y_scale).tickSize(-width*1.3).ticks(4).tickFormat(y_format))
       .select("domain").remove();
 
     // A color scale: one color for each group
@@ -450,7 +467,6 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,l
         return "translate(" + x_scale(d.value.x) + "," + y_scale(d.value.y) + ")";
       // otherwise, use user-defined positions
       var coords = line_label_coords[d.name];
-      console.log(coords);
       return "translate(" + x_scale(coords[0]) + "," + y_scale(coords[1]) + ")";
     } // end translate_label
     svg
