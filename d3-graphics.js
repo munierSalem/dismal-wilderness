@@ -538,12 +538,14 @@ function d3_multiLine(
     right:  10, 
     bottom: 40, 
     left:   (typeof y_label !== "undefined") ? 60 : 40
-  },
-      width = 700 - margin.left - margin.right,
-      height = 350 - margin.top - margin.bottom;
+  };
 
   chart = d3.select(chart_ID)
     .classed("d3-linechart d3-chart",true);
+
+  var container_width = chart.node().getBoundingClientRect().width;
+  var width = container_width - margin.left - margin.right;
+  var height = container_width / 1.5 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = chart
