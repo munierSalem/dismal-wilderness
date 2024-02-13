@@ -514,7 +514,9 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,l
 } // end d3_linechart function
 
 
-function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_label,line_label_coords,y_format,y_min, y_max){
+function d3_multiLine(
+  chart_ID, x, categories, data_path, tooltip_text, x_label, y_label,
+  y_format, y_min, y_max, color_map){
 
   if(typeof x_label === "undefined"){
     x_label = x;
@@ -523,6 +525,12 @@ function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_lab
   if(typeof y_format === "undefined"){
     y_format = d3.format(".0%");
   } // end y_format if
+
+  if(typeof color_map === "undefined"){
+    color_map = function(d){
+      return "#00A0CC";
+    }; // end function
+  } // end colormap if
 
   // set the dimensions and margins of the graph
   var margin = {
@@ -609,8 +617,7 @@ function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_lab
 
       // Update the X axis
       var x_min = d3.min(data,d=>+d[x]), x_max = d3.max(data,d=>+d[x]);
-      var label_buffer_pct = (typeof line_label_coords === "undefined") ? 0.1 : 0.0;
-      x_scale.domain([x_min,x_max + (x_max-x_min)*label_buffer_pct]);
+      x_scale.domain([x_min,x_max]);
       xAxis
         .call(d3.axisBottom(x_scale).tickSize(-height*1.3).ticks(4).tickFormat(d3.format("d")))
         .select("domain").remove();
@@ -634,23 +641,23 @@ function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_lab
           .attr("stroke-opacity", "0.25")
           .style("fill", "none")
           // Click event to toggle selected state
-          .on("click", function(event, d) {
+          .on("click", function(d) {
             var isSelected = d3.select(this).classed("selected");
             d3.select(this)
               .classed("selected", !isSelected) // Toggle the 'selected' class
-              .attr("stroke", !isSelected ? "#00A0CC" : "#000000") // Toggle color based on new state
+              .attr("stroke", !isSelected ? color_map(d) : "#000000") // Toggle color based on new state
               .attr("stroke-opacity", !isSelected ? "1" : "0.25"); // Toggle opacity
           })
           // Adjust mouseenter to respect the selected state
-          .on("mouseenter", function(event, d) {
+          .on("mouseenter", function(d) {
             if (!d3.select(this).classed("selected")) { // Change only if not selected
               d3.select(this)
-                .attr("stroke", "#00A0CC")
+                .attr("stroke", color_map(d))
                 .attr("stroke-opacity", "1");
             }
           })
           // Adjust mouseleave to respect the selected state
-          .on("mouseleave", function(event, d) {
+          .on("mouseleave", function(d) {
             if (!d3.select(this).classed("selected")) { // Revert only if not selected
               d3.select(this)
                 .attr("stroke", "#000000")
