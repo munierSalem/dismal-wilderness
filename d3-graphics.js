@@ -636,23 +636,24 @@ function d3_multiLine(
         .enter()
         .append("path")
           .classed("line",true)
+          .classed("skinny",true)
           .attr("d", d=>lines(d.values))
-          .attr("stroke","#000000")
-          .attr("stroke-opacity", "0.25")
+          .attr("stroke",d=>color_map(d))
+          .attr("stroke-opacity", "0.5")
           .style("fill", "none")
           // Click event to toggle selected state
           .on("click", function(d) {
             var isSelected = d3.select(this).classed("selected");
             d3.select(this)
               .classed("selected", !isSelected) // Toggle the 'selected' class
-              .attr("stroke", !isSelected ? color_map(d) : "#000000") // Toggle color based on new state
-              .attr("stroke-opacity", !isSelected ? "1" : "0.25"); // Toggle opacity
+              //.attr("stroke", !isSelected ? color_map(d) : "#000000") // Toggle color based on new state
+              .attr("stroke-opacity", !isSelected ? "1" : "0.5"); // Toggle opacity
           })
           // Adjust mouseenter to respect the selected state
           .on("mouseenter", function(d) {
             if (!d3.select(this).classed("selected")) { // Change only if not selected
               d3.select(this)
-                .attr("stroke", color_map(d))
+                //.attr("stroke", color_map(d))
                 .attr("stroke-opacity", "1");
             }
           })
@@ -660,8 +661,8 @@ function d3_multiLine(
           .on("mouseleave", function(d) {
             if (!d3.select(this).classed("selected")) { // Revert only if not selected
               d3.select(this)
-                .attr("stroke", "#000000")
-                .attr("stroke-opacity", "0.25");
+                //.attr("stroke", "#000000")
+                .attr("stroke-opacity", "0.5");
             }
           });
 

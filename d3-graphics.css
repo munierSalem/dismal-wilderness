@@ -101,6 +101,10 @@
     stroke-width: 3px;
 }
 
+.d3-chart .line.skinny {
+    stroke-width: 2px;
+}
+
 .d3-chart .line:hover {
     stroke-width: 5px;
 }
