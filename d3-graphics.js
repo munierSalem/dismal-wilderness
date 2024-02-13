@@ -514,6 +514,208 @@ function d3_linechart(chart_ID,x,y_vars,data_path,tooltip_text,x_label,y_label,l
 } // end d3_linechart function
 
 
+function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_label,line_label_coords,y_format,y_min, y_max){
+
+  if(typeof x_label === "undefined"){
+    x_label = x;
+  } // end x_label if
+
+  if(typeof y_format === "undefined"){
+    y_format = d3.format(".0%");
+  } // end y_format if
+
+  // set the dimensions and margins of the graph
+  var margin = {
+    top:    10, 
+    right:  10, 
+    bottom: 40, 
+    left:   (typeof y_label !== "undefined") ? 60 : 40
+  },
+      width = 700 - margin.left - margin.right,
+      height = 350 - margin.top - margin.bottom;
+
+  chart = d3.select(chart_ID)
+    .classed("d3-linechart d3-chart",true);
+
+  // append the svg object to the body of the page
+  var svg = chart
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+  // y axis-label
+  if(typeof y_label !== "undefined"){
+    svg.append("text")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -margin.left+20)
+        .attr("x", -margin.top)
+        .attr("class","axis-label")
+        .text(y_label);
+  } // end x_label if
+  svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height + margin.top + 20)
+    .attr("class","axis-label")
+    .text(x_label);
+
+  if(typeof tooltip_text !== "undefined"){
+      // Define the div for the tooltip
+      var tooltip = d3.select("body").append("div") 
+          .attr("class", "d3-tooltip")
+          .style("opacity", 0);
+  }// end tooltip if
+
+  // Initialize the X axis
+  var x_scale = d3.scaleLinear()
+    .range([ 0, width ]);
+  var xAxis = svg.append("g")
+    .attr("transform", "translate(0," + height + ")");
+
+  // Initialize the Y axis
+  var y_scale = d3.scaleLinear()
+    .range([ height, 0]);
+  var y_axis = svg.append("g");
+
+
+  function update(categories, duration=1000) {
+    d3.csv(data_path,function(data){
+
+      // detect all y-vars
+      var allKeys = Object.keys(data[0]);
+      var y_vars = allKeys.filter(function(key) {
+        return key !== x;
+      });
+
+      // Reformat the data: we need an array of arrays of {x, y} tuples
+      var dataReady = y_vars.map( function(grpName) {
+        return {
+          name: grpName,
+          values: data.map(function(d) {
+            var yValue = (d[grpName] != null && d[grpName] !== '') ? +d[grpName] : null;
+            return {x: +d[x], y: yValue, name: grpName};
+          }).filter(function(d) {
+            // Filter out the points where y is null or an empty string
+            return d.y != null;
+          })
+        };
+      });
+
+      // Update the X axis
+      var x_min = d3.min(data,d=>+d[x]), x_max = d3.max(data,d=>+d[x]);
+      var label_buffer_pct = (typeof line_label_coords === "undefined") ? 0.1 : 0.0;
+      x_scale.domain([x_min,x_max + (x_max-x_min)*label_buffer_pct]);
+      xAxis
+        .call(d3.axisBottom(x_scale).tickSize(-height*1.3).ticks(4).tickFormat(d3.format("d")))
+        .select("domain").remove();
+
+      // Update the Y axis
+      y_scale.domain([y_min,y_max]); // end y_scale.domain
+      y_axis
+        .call(d3.axisLeft(y_scale).tickSize(-width*1.3).ticks(4).tickFormat(y_format))
+        .select("domain").remove();
+
+      // Add the lines
+      svg.selectAll(".line").remove();  // wipe old data
+      var lines = d3.line().x(d=>x_scale(d.x)).y(d=>y_scale(d.y))
+      var my_lines = svg.selectAll(".myLines")
+        .data(dataReady)
+        .enter()
+        .append("path")
+          .classed("line",true)
+          .attr("d", d=>lines(d.values))
+          .attr("stroke","#000000")
+          .attr("stroke-opacity", "0.25")
+          .style("fill", "none")
+          // Click event to toggle selected state
+          .on("click", function(event, d) {
+            var isSelected = d3.select(this).classed("selected");
+            d3.select(this)
+              .classed("selected", !isSelected) // Toggle the 'selected' class
+              .attr("stroke", !isSelected ? "#00A0CC" : "#000000") // Toggle color based on new state
+              .attr("stroke-opacity", !isSelected ? "1" : "0.25"); // Toggle opacity
+          })
+          // Adjust mouseenter to respect the selected state
+          .on("mouseenter", function(event, d) {
+            if (!d3.select(this).classed("selected")) { // Change only if not selected
+              d3.select(this)
+                .attr("stroke", "#00A0CC")
+                .attr("stroke-opacity", "1");
+            }
+          })
+          // Adjust mouseleave to respect the selected state
+          .on("mouseleave", function(event, d) {
+            if (!d3.select(this).classed("selected")) { // Revert only if not selected
+              d3.select(this)
+                .attr("stroke", "#000000")
+                .attr("stroke-opacity", "0.25");
+            }
+          });
+
+      if(typeof tooltip_text !== "undefined"){
+          // define mouseover behavior for tooltips
+          my_lines.on("mouseover", function(d) {
+              tooltip.transition()    
+                     .duration(200)   
+                     .style("opacity", .9);   
+              tooltip.html(tooltip_text(d)) 
+                     .style("left", (d3.event.pageX + 20) + "px")   
+                     .style("top", (d3.event.pageY - 28) + "px"); 
+          }) // end mouseover
+          .on("mouseout", function(d) {   
+                tooltip.transition()    
+                    .duration(500)    
+                    .style("opacity", 0); 
+          });// end mouseout
+      } // end tooltip if
+
+      }); // end d3.csv
+  }; // end function update
+
+  // if we're given multiple y_vars, set up toggle
+  if(Array.isArray(categories)){
+
+    var controls = chart.insert('div',":first-child").classed('controls',true);
+    var buttons = controls
+      .selectAll('a')
+      .data(categories)
+      .enter()
+      .append('a')
+      .classed("button",true)
+      .classed("small", categories.length > 6)
+      .classed("selected",(d,i)=>i == 0)
+      .attr("value",d=>d)
+      .html(d=>d);
+    controls.append("br");
+
+    // Initialize the plot with the first dataset
+    update(controls.select('.selected').attr('value'),duration=0);
+    // update(controls.select('.selected').attr('value'),duration=0); // tooltip BS
+
+    // Set up click functionality for controls
+    buttons.on("click",function(){
+      var curr_button = d3.select(this);
+      if(!curr_button.classed("selected")){
+        buttons.classed('selected',false);
+          curr_button.classed('selected',true);
+          update(curr_button.attr("value"));
+      } // selected if
+    }); // end button click function
+
+  } else { // otherwise just one y_var, and no need for toggles
+
+    update(categories,duration=0);
+    // update(categories,duration=0);  // tooltip BS
+
+  } // end isArray if/else
+
+} // end d3_multiLine function
+
+
 function d3_geo_scatter(chart_ID,x,y,color,data_path,outline_path,tooltip_text){
   /*
     Produce a 1-d scatter plot across the width of the page.  Optionally,
