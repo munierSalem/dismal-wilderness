@@ -582,13 +582,15 @@ function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_lab
   var y_axis = svg.append("g");
 
 
-  function update(categories, duration=1000) {
+  function update(category, duration=1000) {
     d3.csv(data_path,function(data){
 
       // detect all y-vars
       var allKeys = Object.keys(data[0]);
       var y_vars = allKeys.filter(function(key) {
-        return key !== x;
+        tmp = key.split(" - ")
+        key_cat = tmp[tmp.length - 1]
+        return (key !== x) && ((category === "All") || (key_cat === category))
       });
 
       // Reformat the data: we need an array of arrays of {x, y} tuples
@@ -678,6 +680,8 @@ function d3_multiLine(chart_ID,x,categories,data_path,tooltip_text,x_label,y_lab
 
   // if we're given multiple y_vars, set up toggle
   if(Array.isArray(categories)){
+
+    categories.unshift('All')
 
     var controls = chart.insert('div',":first-child").classed('controls',true);
     var buttons = controls
