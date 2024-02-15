@@ -1,59 +1,59 @@
 ,peak,route,range,grade,1/4 mi,1/8 mi
-0,North Maroon Peak,Northeast Ridge,Elk,IV,814.0794024048337,814.0794024048337
-1,Crestone Peak,South Face,Sangres,III,780.2519586453745,780.2519586453745
-2,Little Bear Peak,West Ridge and Hourglass,Sangres,IV,755.9014605552238,755.9014605552238
-3,Kit Carson Peak,Via Challenger Point,Sangres,III,737.8912373655021,737.8912373655021
-4,Challenger Point,North Slope,Sangres,II,716.2924382235615,716.2924382235615
-5,Pyramid Peak,Northeast Ridge,Elk,IV,714.6114855661599,714.6114855661599
-6,Mt. Sneffels,South Slopes,San Juans,III,703.8917846864188,703.8917846864188
-7,Sunlight Peak,South Face,San Juans,IV,649.1272828938818,649.1272828938818
-8,Mt. Wilson,North Slopes,San Juans,IV,644.8429971698952,644.8429971698952
-9,Mt. Columbia,West Slopes,Sawatch,II,634.8467319985211,634.8467319985211
-10,El Diente Peak,North Slopes,San Juans,III,634.6470395716806,634.6470395716806
-11,Longs Peak,Keyhole Route,Front,III,622.240738374705,622.240738374705
-12,Snowmass Mountain,East Slopes,Elk,III,622.0410128156382,622.0410128156382
-13,Crestone Needle,South Face,Sangres,IV,604.8153455438423,604.8153455438423
-14,Maroon Peak,South Ridge,Elk,III,561.1441618257013,561.1441618257013
-15,Capitol Peak,Northeast Ridge,Elk,IV,558.4480880268729,558.4480880268729
-16,Mt. Yale,Southwest Slopes,Sawatch,II,557.678083685274,557.678083685274
-17,Mt. Harvard,South Slopes,Sawatch,II,550.8041588687847,550.8041588687847
-18,Mt. Oxford,Via Mt. Belford,Sawatch,II,548.9099869345791,548.9099869345791
-19,Culebra Peak,Northwest Ridge,Sangres,II,545.6612957689631,545.6612957689631
-20,Mt. Lindsey,Northwest Gully,Sangres,III,545.1580509005798,545.1580509005798
-21,Wetterhorn Peak,Southeast Ridge,San Juans,III,538.7195198952377,538.7195198952377
-22,Conundrum Peak,South Ridge,Elk,II,527.8484519823342,527.8484519823342
-23,Humboldt Peak,West Ridge,Sangres,II,523.571128345442,523.571128345442
-24,Mt. of the Holy Cross,North Ridge,Sawatch,II,517.2893928151079,517.2893928151079
-25,Quandary Peak,East Ridge,10/Mosquito,I,512.7733343171294,512.7733343171294
-26,Missouri Mountain,Northwest Ridge,Sawatch,II,511.12037354373206,511.12037354373206
-27,Mt. Princeton,East Slopes,Sawatch,II,505.9968305013899,505.9968305013899
-28,Mt. Elbert,Northeast Ridge,Sawatch,I,498.7138622468301,498.7138622468301
-29,Castle Peak,Northeast Ridge,Elk,II,490.18669532184504,490.18669532184504
-30,Wilson Peak,Southwest Ridge,San Juans,III,486.5747304742108,486.5747304742108
-31,Windom Peak,West Ridge,San Juans,II,486.0996237189993,486.0996237189993
-32,Blanca Peak,Northwest Ridge,Sangres,II,476.2881593600687,476.2881593600687
-33,Pikes Peak,Northwest Slopes,Front,II,457.6822449344436,457.6822449344436
-34,Mt. Shavano,East Slopes,Sawatch,II,453.04296106829133,453.04296106829133
-35,Mt. Bross,West Slopes,10/Mosquito,II,452.4648895364153,452.4648895364153
-36,Ellingwood Point,South Face,Sangres,II,449.22714040724713,449.22714040724713
-37,Tabeguache Peak,Via Mt. Shavano,Sawatch,II,446.5321439795953,446.5321439795953
-38,Torreys Peak,South Slopes,Front,I,445.18252269186996,445.18252269186996
-39,Mt. Bierstadt,West Slopes,Front,II,440.75244680762444,440.75244680762444
-40,Mt. Democrat,East Slope,10/Mosquito,II,438.885007223751,438.885007223751
-41,Huron Peak,Northwest Slopes,Sawatch,II,434.9719362499509,434.9719362499509
-42,Mt. Antero,West Slopes,Sawatch,II,434.8023404544165,434.8023404544165
-43,Mt. Belford,Northwest Ridge,Sawatch,II,422.2091039218267,422.2091039218267
-44,Grays Peak,North Slopes,Front,I,410.47296418199585,410.47296418199585
-45,North Eolus,South Ridge,San Juans,III,406.3245561322219,406.3245561322219
-46,Mt. Blue Sky,West Ridge from Summit Lake,Front,II,400.4306067517027,400.4306067517027
-47,Mt. Eolus,Northeast Ridge,San Juans,III,399.34589371986294,399.34589371986294
-48,San Luis Peak,Northeast Ridge,San Juans,I,381.33764054363746,381.33764054363746
-49,Mt. Massive,East Slopes,Sawatch,II,375.6041020266275,375.6041020266275
-50,La Plata Peak,Northwest Ridge,Sawatch,II,371.1318668756576,371.1318668756576
-51,Mt. Lincoln,West Ridge,10/Mosquito,II,371.0449693138853,371.0449693138853
-52,Handies Peak,Southwest Slopes,San Juans,I,366.179082562383,366.179082562383
-53,Mt. Cameron,West Ridge,10/Mosquito,II,361.8026489226395,361.8026489226395
-54,Mt. Sherman,Southwest Ridge,10/Mosquito,II,360.40631379865044,360.40631379865044
-55,Uncompahgre Peak,South Ridge,San Juans,II,276.38644843258953,276.38644843258953
-56,Redcloud Peak,Northeast Ridge,San Juans,II,234.20599050478086,234.20599050478086
-57,Sunshine Peak,Via Redcloud Peak,San Juans,II,231.90929129531287,231.90929129531287
+0,North Maroon Peak,Northeast Ridge,Elk,IV,810,810
+1,Crestone Peak,South Face,Sangres,III,780,780
+2,Little Bear Peak,West Ridge and Hourglass,Sangres,IV,760,760
+3,Kit Carson Peak,Via Challenger Point,Sangres,III,740,740
+4,Challenger Point,North Slope,Sangres,II,720,720
+5,Pyramid Peak,Northeast Ridge,Elk,IV,710,710
+6,Mt. Sneffels,South Slopes,San Juans,III,700,700
+7,Sunlight Peak,South Face,San Juans,IV,650,650
+8,Mt. Wilson,North Slopes,San Juans,IV,640,640
+9,Mt. Columbia,West Slopes,Sawatch,II,630,630
+10,El Diente Peak,North Slopes,San Juans,III,630,630
+11,Longs Peak,Keyhole Route,Front,III,620,620
+12,Snowmass Mountain,East Slopes,Elk,III,620,620
+13,Crestone Needle,South Face,Sangres,IV,600,600
+14,Maroon Peak,South Ridge,Elk,III,560,560
+15,Capitol Peak,Northeast Ridge,Elk,IV,560,560
+16,Mt. Yale,Southwest Slopes,Sawatch,II,560,560
+17,Mt. Harvard,South Slopes,Sawatch,II,550,550
+18,Mt. Oxford,Via Mt. Belford,Sawatch,II,550,550
+19,Culebra Peak,Northwest Ridge,Sangres,II,550,550
+20,Mt. Lindsey,Northwest Gully,Sangres,III,550,550
+21,Wetterhorn Peak,Southeast Ridge,San Juans,III,540,540
+22,Conundrum Peak,South Ridge,Elk,II,530,530
+23,Humboldt Peak,West Ridge,Sangres,II,520,520
+24,Mt. of the Holy Cross,North Ridge,Sawatch,II,520,520
+25,Quandary Peak,East Ridge,10/Mosquito,I,510,510
+26,Missouri Mountain,Northwest Ridge,Sawatch,II,510,510
+27,Mt. Princeton,East Slopes,Sawatch,II,510,510
+28,Mt. Elbert,Northeast Ridge,Sawatch,I,500,500
+29,Castle Peak,Northeast Ridge,Elk,II,490,490
+30,Wilson Peak,Southwest Ridge,San Juans,III,490,490
+31,Windom Peak,West Ridge,San Juans,II,490,490
+32,Blanca Peak,Northwest Ridge,Sangres,II,480,480
+33,Pikes Peak,Northwest Slopes,Front,II,460,460
+34,Mt. Shavano,East Slopes,Sawatch,II,450,450
+35,Mt. Bross,West Slopes,10/Mosquito,II,450,450
+36,Ellingwood Point,South Face,Sangres,II,450,450
+37,Tabeguache Peak,Via Mt. Shavano,Sawatch,II,450,450
+38,Torreys Peak,South Slopes,Front,I,450,450
+39,Mt. Bierstadt,West Slopes,Front,II,440,440
+40,Mt. Democrat,East Slope,10/Mosquito,II,440,440
+41,Huron Peak,Northwest Slopes,Sawatch,II,430,430
+42,Mt. Antero,West Slopes,Sawatch,II,430,430
+43,Mt. Belford,Northwest Ridge,Sawatch,II,420,420
+44,Grays Peak,North Slopes,Front,I,410,410
+45,North Eolus,South Ridge,San Juans,III,410,410
+46,Mt. Blue Sky,West Ridge from Summit Lake,Front,II,400,400
+47,Mt. Eolus,Northeast Ridge,San Juans,III,400,400
+48,San Luis Peak,Northeast Ridge,San Juans,I,380,380
+49,Mt. Massive,East Slopes,Sawatch,II,380,380
+50,La Plata Peak,Northwest Ridge,Sawatch,II,370,370
+51,Mt. Lincoln,West Ridge,10/Mosquito,II,370,370
+52,Handies Peak,Southwest Slopes,San Juans,I,370,370
+53,Mt. Cameron,West Ridge,10/Mosquito,II,360,360
+54,Mt. Sherman,Southwest Ridge,10/Mosquito,II,360,360
+55,Uncompahgre Peak,South Ridge,San Juans,II,280,280
+56,Redcloud Peak,Northeast Ridge,San Juans,II,230,230
+57,Sunshine Peak,Via Redcloud Peak,San Juans,II,230,230
